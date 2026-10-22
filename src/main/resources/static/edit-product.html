@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product - Admin Panel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background-color: #f4f7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .card {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    .card h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .btn-primary {
+      background-color: #ffc107;
+      color: #212529;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background-color: #e0a800;
+    }
+    .btn-secondary {
+      background-color: #6c757d;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 16px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>Edit Product</h2>
+  <form id="editProductForm">
+    <div class="form-group">
+      <input type="text" id="name" placeholder="Product Name" required />
+    </div>
+
+    <div class="form-group">
+      <textarea id="description" placeholder="Description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <input type="number" id="price" placeholder="Price (₹)" step="0.01" required />
+    </div>
+
+    <div class="form-group">
+      <input type="number" id="stock" placeholder="Stock Quantity" required />
+    </div>
+
+    <div class="form-group">
+      <select id="category" name="category" required>
+        <option value="" disabled selected>Select Category</option>
+        <option value="RINGS">Rings</option>
+        <option value="NECKLACES">Necklaces</option>
+        <option value="EARRINGS">Earrings</option>
+        <option value="BRACELETS">Bracelets</option>
+        <option value="BANGLES">Bangles</option>
+        <option value="ANKLETS">Anklets</option>
+        <option value="PENDANTS">Pendants</option>
+        <option value="MANGALSUTRAS">Mangalsutras</option>
+        <option value="BARS">Bars</option>
+        <option value="COINS">Coins</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <select id="metalType" required>
+        <option value="" disabled selected>Select Metal Type</option>
+        
+        <optgroup label="Gold">
+            <option value="GOLD_24K">24K Gold (Pure)</option>
+            <option value="GOLD_22K">22K Gold</option>
+            <option value="GOLD_18K">18K Gold</option>
+            <option value="GOLD_14K">14K Gold</option>
+            <option value="GOLD_10K">10K Gold</option>
+            <option value="ROSE_GOLD">Rose Gold</option>
+        </optgroup>
+
+        <optgroup label="Silver">
+            <option value="STERLING_SILVER_925">925 Sterling Silver</option>
+            <option value="FINE_SILVER_999">999 Fine Silver</option>
+        </optgroup>
+
+        <optgroup label="Platinum Group">
+            <option value="PLATINUM">Platinum (Pt950)</option>
+            <option value="PALLADIUM">Palladium</option>
+        </optgroup>
+
+        <optgroup label="Contemporary & Fashion">
+            <option value="TITANIUM">Titanium</option>
+            <option value="TUNGSTEN">Tungsten</option>
+            <option value="STAINLESS_STEEL">Stainless Steel</option>
+            <option value="BRASS">Brass</option>
+            <option value="COPPER">Copper</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <select id="gender">
+        <option value="" disabled selected>Select Gender</option>
+        <option value="WOMEN">Women</option>
+        <option value="MEN">Men</option>
+        <option value="UNISEX">Unisex</option>
+        <option value="KIDS">Kids</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="stoneType" placeholder="Stone Type" />
+    </div>
+
+    <div class="form-group">
+      <input type="number" id="stoneWeight" placeholder="Stone Weight (Carats)" step="0.01" />
+    </div>
+
+    <div class="form-group">
+      <input type="number" id="weight" placeholder="Weight (Grams)" step="0.01" />
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="occasion" placeholder="Occasion" />
+    </div>
+
+    <div class="form-group">
+      <input type="text" id="imageUrl" placeholder="Image URL" />
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn-primary">Update Product</button>
+      <a href="all-products-admin.html" class="btn-secondary">Back to Product List</a>
+    </div>
+  </form>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+  const token = localStorage.getItem('token');
+
+  // Helper function to safely get input value or null
+  function getInputValue(id, isNumeric = false) {
+    const val = document.getElementById(id).value.trim();
+    if (val === '') return null;
+    return isNumeric ? parseFloat(val) : val;
+  }
+
+  // 1. Load data and auto-fill form
+  async function loadProductData() {
+    if (!productId) {
+      alert("Product ID is missing in URL!");
+      return;
+    }
+
+    if (!token) {
+      alert("Unauthorized! Please log in as admin.");
+      window.location.href = 'login.html';
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8080/admin/products/${productId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch product details. Status: ${response.status}`);
+      }
+
+      const product = await response.json();
+      console.log('Fetched Product Data:', product);
+
+      // Populate form fields matching response DTO keys
+      setFieldValue('name', product.name);
+      setFieldValue('description', product.description);
+      setFieldValue('price', product.price);
+      setFieldValue('stock', product.stock);
+      setFieldValue('category', product.category);
+      setFieldValue('metalType', product.metalType);
+      setFieldValue('gender', product.gender);
+      setFieldValue('stoneType', product.stoneType);
+      setFieldValue('stoneWeight', product.stoneWeight);
+      setFieldValue('weight', product.weight);
+      setFieldValue('occasion', product.occasion);
+      setFieldValue('imageUrl', product.imageUrl);
+
+    } catch (error) {
+      console.error('Error auto-filling form:', error);
+      alert('Failed to load product data. Check browser console.');
+    }
+  }
+
+  function setFieldValue(elementId, value) {
+	  const element = document.getElementById(elementId);
+	  if (element && value !== undefined && value !== null) {
+	    element.value = value;
+	  }
+	}
+
+  // 2. Handle form submission (Update Request)
+  document.getElementById('editProductForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const updatedProduct = {
+      name: getInputValue('name'),
+      description: getInputValue('description'),
+      price: getInputValue('price', true),
+      stock: parseInt(document.getElementById('stock').value, 10),
+      category: getInputValue('category'),
+      metalType: getInputValue('metalType'),
+      gender: getInputValue('gender'),
+      stoneType: getInputValue('stoneType'),
+      stoneWeight: getInputValue('stoneWeight', true),
+      weight: getInputValue('weight', true),
+      occasion: getInputValue('occasion'),
+      imageUrl: getInputValue('imageUrl')
+    };
+
+    try {
+      const response = await fetch(`http://localhost:8080/admin/products/${productId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updatedProduct)
+      });
+
+      if (response.ok) {
+        alert('Product updated successfully!');
+        window.location.href = 'all-products-admin.html';
+      } else {
+        const errorData = await response.text();
+        console.error('Update Failed Response:', errorData);
+        alert(`Failed to update product (${response.status}). Check inputs.`);
+      }
+    } catch (error) {
+      console.error('Error updating product:', error);
+      alert('Error connecting to backend server.');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', loadProductData);
+</script>
+</body>
+</html>

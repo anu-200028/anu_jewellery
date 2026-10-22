@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Fixed: allows viewing content from top to bottom */
+            padding: 40px 20px;
+            margin: 0;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        
+        .container {
+            width: 95%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header-top {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .btn-back:hover {
+            background-color: #0b5ed7;
+        }
+    
+        .form-card {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: block;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 1. Back to Admin Home Button on top -->
+  <div style="display: flex; justify-content: flex-end; width: 100%; margin-bottom: 20px;">
+      <a href="admin-home.html" class="btn-back">Back to Admin Home</a>
+  </div>
+
+  <div class="form-card">
+    <!-- 2. Centered Add Product Heading -->
+    <h2 style="text-align: center; margin-bottom: 20px; color: #333;">Add Product</h2>
+    
+    <form id="addProductForm">
+        <div class="form-group"><input type="text" id="name" placeholder="Product Name" required /></div>
+        <div class="form-group"><textarea id="description" placeholder="Description"></textarea></div>
+        <div class="form-group"><input type="number" id="price" placeholder="Price" step="0.01" required /></div>
+        <div class="form-group"><input type="number" id="stock" placeholder="Stock" required /></div>
+        
+        <div class="form-group">
+  <select id="category" name="category" required>
+    <option value="" disabled selected>Select Category</option>
+    <option value="RINGS">Rings</option>
+    <option value="NECKLACES">Necklaces</option>
+    <option value="EARRINGS">Earrings</option>
+    <option value="BRACELETS">Bracelets</option>
+    <option value="BANGLES">Bangles</option>
+    <option value="ANKLETS">Anklets</option>
+    <option value="PENDANTS">Pendants</option>
+    <option value="MANGALSUTRAS">Mangalsutras</option>
+    <option value="BARS">Bars</option>
+    <option value="COINS">Coins</option>
+</select>
+</div>
+
+<div class="form-group">
+    <select id="metalType" name="metalType" required>
+        <option value="" disabled selected>Select Metal Type</option>
+        
+        <!-- Gold Options (By Karat) -->
+        <optgroup label="Gold">
+            <option value="GOLD_24K">24K Gold (Pure)</option>
+            <option value="GOLD_22K">22K Gold</option>
+            <option value="GOLD_18K">18K Gold</option>
+            <option value="GOLD_14K">14K Gold</option>
+            <option value="GOLD_10K">10K Gold</option>
+        </optgroup>
+
+        <!-- Silver Options -->
+        <optgroup label="Silver">
+            <option value="STERLING_SILVER_925">925 Sterling Silver</option>
+            <option value="FINE_SILVER_999">999 Fine Silver</option>
+        </optgroup>
+
+        <!-- Platinum & Palladium -->
+        <optgroup label="Platinum Group">
+            <option value="PLATINUM">Platinum (Pt950)</option>
+            <option value="PALLADIUM">Palladium</option>
+        </optgroup>
+
+        <!-- Contemporary & Fashion Metals -->
+        <optgroup label="Contemporary & Fashion">
+            <option value="TITANIUM">Titanium</option>
+            <option value="TUNGSTEN">Tungsten</option>
+            <option value="STAINLESS_STEEL">Stainless Steel</option>
+            <option value="BRASS">Brass</option>
+            <option value="COPPER">Copper</option>
+            <option value="BRONZE">Bronze</option>
+        </optgroup>
+    </select>
+</div>
+
+        <div class="form-group">
+            <select id="gender">
+                <option value="" disabled selected>Select Gender</option>
+                <option value="WOMEN">Women</option>
+                <option value="MEN">Men</option>
+                <option value="UNISEX">Unisex</option>
+            </select>
+        </div>
+
+        <div class="form-group"><input type="text" id="stoneType" placeholder="Stone Type" /></div>
+        <div class="form-group"><input type="number" id="stoneWeightCarat" placeholder="Stone Weight (Carats)" step="0.01" /></div>
+        <div class="form-group"><input type="number" id="weightInGrams" placeholder="Weight (Grams)" step="0.01" /></div>
+        <div class="form-group"><input type="text" id="occasion" placeholder="Occasion" /></div>
+        <div class="form-group"><input type="text" id="imageUrl" placeholder="Image URL" /></div>
+
+        <button type="submit">Add Product</button>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById('addProductForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const getValue = (id) => {
+    const val = document.getElementById(id).value.trim();
+    return val === "" ? null : val;
+  };
+
+  const getNumber = (id) => {
+    const val = document.getElementById(id).value;
+    return val === "" ? null : parseFloat(val);
+  };
+
+  const productData = {
+		    name: getValue('name'),
+		    description: getValue('description'),
+		    price: getNumber('price'),
+		    stock: parseInt(document.getElementById('stock').value) || 0,
+		    category: getValue('category'),
+		    metalType: getValue('metalType'),
+		    gender: getValue('gender'),
+		    stoneType: getValue('stoneType'),
+		    stoneWeight: getNumber('stoneWeightCarat'), // Changed from stoneWeightCarat to stoneWeight
+		    weight: getNumber('weightInGrams'),         // Changed from weightInGrams to weight
+		    occasion: getValue('occasion'),
+		    imageUrl: getValue('imageUrl')
+		  };
+
+  const token = localStorage.getItem('token') || localStorage.getItem('jwt') || localStorage.getItem('adminToken');
+  console.log("Retrieved token:", token);
+
+  try {
+    const response = await fetch('http://localhost:8080/api/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(productData)
+    });
+
+    if (response.ok) {
+      const savedProduct = await response.json();
+      alert('Product saved successfully with ID: ' + savedProduct.id);
+      document.getElementById('addProductForm').reset();
+    } else {
+      const errorText = await response.text();
+      console.error('Server Response Error:', errorText);
+      alert('Failed to save product. Check browser console (F12) for details.');
+    }
+  } catch (error) {
+    console.error('Network Error:', error);
+    alert('Could not connect to Spring Boot server. Ensure application is running on port 8080.');
+  }
+});
+</script>
+</body>
+</html>

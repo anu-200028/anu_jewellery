@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Admin Login</h2>
+    <form id="adminLoginForm">
+      <input type="text" id="username" placeholder="Admin Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p id="message"></p>
+    <a href="/index.html">Back</a>
+  </div>
+<script>
+document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    try {
+        const response = await fetch('http://localhost:8080/auth/login', { // Or your admin login endpoint
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            
+            // 1. SAVE THE JWT TOKEN TO LOCALSTORAGE
+            localStorage.setItem("token", data.token); 
+
+            alert("Login successful!");
+            
+            // 2. REDIRECT TO ADMIN HOME
+            window.location.href = "admin-home.html";
+        } else {
+            alert("Invalid credentials. Please try again.");
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("Server error. Ensure anu_jewellery is running.");
+    }
+});
+</script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
